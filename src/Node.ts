@@ -70,7 +70,7 @@ export abstract class Node implements Entity {
     return false;
   }
 
-  getStorage() {
+  getStorage(): Storage {
     if (this['storage']) return this['storage'];
 
     return this.parent.getStorage();
@@ -83,9 +83,19 @@ export abstract class Node implements Entity {
   }
 
   output(items: Item[], portName = 'output'): Node {
-    this.portNamed(portName).output(items);
+    const port = this.portNamed(portName);
+    this.parent.newItemsAtPort(port, items);
 
     return this;
+  }
+
+  // This can not be here since we dont know if it is a Diagramnode ??
+  // We need to know if it is a Diagramnode or a SimpleNode
+  // If a node outputs features, can we assume it has a DiagramNode parent?
+  // The answer is no. Go back to the drawingboard
+  // The above was a discussion with github copilot :D
+  newItemsAtPort(port: Port, items: Item[]) {
+    this.getStorage().concat(port.id, items);
   }
 
   portNamed(name: string): Port | undefined {

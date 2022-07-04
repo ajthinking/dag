@@ -21,11 +21,6 @@ export abstract class Port implements Entity {
     this.name = input.name ?? this.constructor.name;
   }
 
-  output(items: Item[]) {
-    // this.storage().set(this.id, items);
-    // // this.notifyDependentsOfNewItems();
-  }
-
   protected getStorage() {
     return this.parent.getStorage();
   }

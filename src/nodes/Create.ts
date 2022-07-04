@@ -21,6 +21,12 @@ export class Create extends SimpleNode {
     super(input);
   }
 
+  /*
+   * StarterNode.output() notifies diagram it want to output items
+   * Diagram resolves connected links and puts items in the corresponding storage
+   * Diagram resolves ports and nodes dependent on the links
+   * Diagram notifies dependent nodes by calling Node.onNewItemsAt
+   */
   async start(): Promise<void> {
     this.output([new Item(null)]);
   }
