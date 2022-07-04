@@ -1,3 +1,4 @@
+import { Item } from './Item';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Parameter } from './Parameter';
@@ -36,6 +37,23 @@ export class DiagramNode extends Node {
     });
 
     this.links.push(link);
+  }
+
+  newItemsAtPort(port: Port, items: Item[]) {
+    const connectedLinks = this.links.filter(
+      (link) => link.from.id === port.id,
+    );
+
+    for (const link of connectedLinks) {
+      this.getStorage().concat(link.id, items);
+      this.nodesConnectedToLink(link).forEach((node) => {
+        node.onNewItems(); // TODO
+      });
+    }
+  }
+
+  nodesConnectedToLink(link: Link): Node[] {
+    return []; // TODO
   }
 
   starterNodes(): Node[] {

@@ -4,6 +4,7 @@ import { Parameter } from './Parameter';
 import { Port } from './Port';
 import { uid } from './utils/uid';
 import { Storage } from './Storage';
+import { DiagramNode } from './DiagramNode';
 
 export type NodeInput = {
   id?: string;
@@ -11,7 +12,7 @@ export type NodeInput = {
   parameters?: Parameter[];
   inPorts?: Port[];
   outPorts?: Port[];
-  parent?: Node;
+  parent?: DiagramNode;
   storage?: Storage;
 };
 
@@ -21,7 +22,7 @@ export abstract class Node implements Entity {
   parameters: Parameter[] = [];
   inPorts: Port[] = [];
   outPorts: Port[] = [];
-  parent: Node;
+  parent: DiagramNode;
   storage: Storage;
 
   constructor(input: NodeInput = {}) {
@@ -76,7 +77,7 @@ export abstract class Node implements Entity {
     return this.parent.getStorage();
   }
 
-  setParent(parent: Node): Node {
+  setParent(parent: DiagramNode): Node {
     this.parent = parent;
 
     return this;
@@ -87,15 +88,6 @@ export abstract class Node implements Entity {
     this.parent.newItemsAtPort(port, items);
 
     return this;
-  }
-
-  // This can not be here since we dont know if it is a Diagramnode ??
-  // We need to know if it is a Diagramnode or a SimpleNode
-  // If a node outputs features, can we assume it has a DiagramNode parent?
-  // The answer is no. Go back to the drawingboard
-  // The above was a discussion with github copilot :D
-  newItemsAtPort(port: Port, items: Item[]) {
-    this.getStorage().concat(port.id, items);
   }
 
   portNamed(name: string): Port | undefined {
