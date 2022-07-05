@@ -29,7 +29,7 @@ export class Link implements Entity {
   }
 
   attach(items: Item[]) {
-    //this.parent.getStorage().set(this.id, items);
+    //this.parent.getItemStorage().set(this.id, items);
   }
 
   createName(): string {
@@ -51,9 +51,5 @@ export class Link implements Entity {
       return this.from.id === event.portId;
     }
     return false;
-  }
-
-  async run() {
-    return this;
   }
 }

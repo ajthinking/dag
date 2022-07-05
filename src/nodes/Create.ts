@@ -28,10 +28,7 @@ export class Create extends SimpleNode {
    * Diagram notifies dependent nodes by calling Node.onNewItemsAt
    */
   async start(): Promise<void> {
+    console.log('Starting node: ' + this.name);
     this.output([new Item(null)]);
-  }
-
-  async run() {
-    return this;
   }
 }

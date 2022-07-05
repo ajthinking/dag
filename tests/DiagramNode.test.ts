@@ -14,6 +14,12 @@ describe('constructor', () => {
       ConcreteDiagramNode,
     );
   });
+
+  // it('can instanciate with a itemStorage', () => {
+  //   expect(new ConcreteDiagramNode()).toBeInstanceOf(
+  //     ConcreteDiagramNode,
+  //   );
+  // });
 });
 
 describe('addNode', () => {

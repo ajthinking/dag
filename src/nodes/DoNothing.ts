@@ -18,6 +18,11 @@ export class DoNothing extends SimpleNode {
   constructor(input: NodeInput = new DoNothingBlueprint()) {
     super(input);
   }
+
+  onNewItemsAtInput(items: Item[]) {
+    console.log('I GOT NEW FEATURES!');
+    this.output(items);
+  }
 }
 
 // // Create a SimpleNde that has a single input port and a single output port.
