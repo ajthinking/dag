@@ -24,4 +24,10 @@ export abstract class Port implements Entity {
   protected getItemStorage() {
     return this.parent.getItemStorage();
   }
+
+  setParent(parent: Node): Port {
+    this.parent = parent;
+
+    return this;
+  }
 }

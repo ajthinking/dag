@@ -77,3 +77,19 @@ describe('starterNodes', () => {
     expect(diagram.starterNodes()).toEqual([create]);
   });
 });
+
+describe('start', () => {
+  it('starts all starter nodes', () => {
+    class StarterNode extends ConcreteNode {
+      start() {
+        return Promise.resolve();
+      }
+    }
+
+    const diagram = new DiagramNode();
+    const create = new StarterNode();
+    const other = new ConcreteNode();
+    diagram.addNodes([create, other]);
+    diagram.start();
+  });
+});

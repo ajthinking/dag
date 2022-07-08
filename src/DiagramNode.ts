@@ -7,8 +7,9 @@ import { Port } from './Port';
 
 export class DiagramNode extends Node {
   nodes: Node[] = [];
-  links = [];
+  links: Link[] = [];
   parent: DiagramNode;
+  itemStorage: ItemStorage;
 
   constructor(
     input: NodeInput = {
@@ -16,12 +17,15 @@ export class DiagramNode extends Node {
     },
   ) {
     super(input);
+
+    this.itemStorage = input.itemStorage;
   }
 
   addNodes(nodes: Node[]): this {
     this.nodes.push(
       ...nodes.map((node) => node.setParent(this)),
     );
+
     return this;
   }
 
@@ -51,7 +55,6 @@ export class DiagramNode extends Node {
   }
 
   newItemsAtPort(port: Port, items: Item[]) {
-    console.log('newItemsAtPort');
     const connectedLinks = this.links.filter(
       (link) => link.from.id === port.id,
     );
@@ -61,8 +64,6 @@ export class DiagramNode extends Node {
       const dependentNode = link.to.parent;
       dependentNode.onNewItems(link.to, items);
     }
-
-    console.log('newItemsAtPort finished');
   }
 
   starterNodes(): Node[] {

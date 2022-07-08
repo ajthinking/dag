@@ -10,5 +10,13 @@ it('can execute a simple diagram', async () => {
   diagram.addNodes([node1, node2]);
   diagram.linkNodes(node1, node2);
 
-  await diagram.run(); // CONTINUE HERE
+  await diagram.run();
+
+  console.log(diagram.getItemStorage());
+  console.log(diagram.links[0].id);
+
+  // Continue here
+  // Run the test!
+  // See how data is available in the storage (on the link - not on the last output port)
+  // Several things makes eyes bleed: Inheritance (bad), parent dependent on child (really bad), abstract classes (bad)
 });

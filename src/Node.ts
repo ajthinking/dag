@@ -23,14 +23,17 @@ export abstract class Node implements Entity {
   inPorts: Port[] = [];
   outPorts: Port[] = [];
   parent: DiagramNode;
-  itemStorage: ItemStorage;
 
   constructor(input: NodeInput = {}) {
     this.id = input.id ?? uid();
     this.name = input.name ?? this.constructor.name;
     this.parameters = input.parameters ?? [];
-    this.inPorts = input.inPorts ?? [];
-    this.outPorts = input.outPorts ?? [];
+    this.inPorts = (input.inPorts ?? []).map((port) =>
+      port.setParent(this),
+    );
+    this.outPorts = (input.outPorts ?? []).map((port) =>
+      port.setParent(this),
+    );
   }
 
   isStarter(): boolean {
@@ -47,9 +50,8 @@ export abstract class Node implements Entity {
 
   onNewItems(port: Port, items: Item[]): void {
     const handlerName = `onNewItemsAt${port.name}`;
-    const handler = this[handlerName];
 
-    if (handler) handler(items);
+    if (this[handlerName]) this[handlerName](items);
   }
 
   onDone() {
@@ -67,8 +69,6 @@ export abstract class Node implements Entity {
   }
 
   getItemStorage(): ItemStorage {
-    console.log('Attempting to get item storage');
-    console.log(this['itemStorage']);
     if (this['itemStorage']) return this['itemStorage'];
 
     return this.parent.getItemStorage();
@@ -80,8 +80,7 @@ export abstract class Node implements Entity {
     return this;
   }
 
-  output(items: Item[], portName = 'output'): Node {
-    console.log('output', items, portName);
+  output(items: Item[], portName = 'Output'): Node {
     const port = this.portNamed(portName);
     this.parent.newItemsAtPort(port, items);
 

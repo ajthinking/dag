@@ -10,8 +10,8 @@ import { SimpleNode } from '../SimpleNode';
 
 export class DoNothingBlueprint extends Blueprint {
   name = 'DoNothing';
-  inPorts = [new OutPort({ name: 'input' })];
-  outPorts = [new OutPort({ name: 'output' })];
+  inPorts = [new OutPort({ name: 'Input' })];
+  outPorts = [new OutPort({ name: 'Output' })];
 }
 
 export class DoNothing extends SimpleNode {
@@ -20,58 +20,6 @@ export class DoNothing extends SimpleNode {
   }
 
   onNewItemsAtInput(items: Item[]) {
-    console.log('I GOT NEW FEATURES!');
     this.output(items);
   }
 }
-
-// // Create a SimpleNde that has a single input port and a single output port.
-// SimpleNode.build('DoNothing')
-// 	.inputPort()
-// 	.outputPort()
-// 	.getBluePrint();
-
-// DiagramNode.build('GetListings')
-// 	.inputPort('ids')
-// 	.add(HttpRequest)
-// 		.onPort('success').add(OutputPort('listings'))
-// 		.onPort('error').add(OutputPort('error'))
-
-// DiagramNode.build('GetListings')
-// 	.addNode(() => Node.build('HttpRequest')
-// 		.withParameter('url', 'https://api.github.com/users/{ids}/repos')
-// 		.withParameter('method', 'GET')
-// 		.withParameter('headers', {
-// 			'Content-Type': 'application/json',))
-
-// const request = new HttpRequest({})
-
-// input-->filter
-// 							.0
-// 							.other-->request
-// 										.success-->listings
-// 										.error-->failed
-
-// input-->filter
-// filter.0
-// filter.other-->request
-// request.
-
-// ┌─────┐       ┌────────┐
-// │input├──────►│filter  │
-// └─────┘       ├────────┤
-//               │        │
-//               │       0│          ┌──────────────────┐
-//               │   other├─────────►│http request      │
-//               └────────┘          │                  │
-//                                   │                  │                    ┌──────┐
-//                                   │           passed ├───────────────────►│output│
-//                                   │                  │                    └──────┘
-//                                   │           failed ├──────────┐
-//                                   │                  │          │
-//                                   └──────────────────┘          │
-//                                                                 │
-//                                                                 │
-//                                                                 │          ┌──────┐
-//                                                                 └─────────►│log   │
-//                                                                            └──────┘

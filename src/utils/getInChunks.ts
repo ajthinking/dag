@@ -25,7 +25,7 @@ export const getInChunks = async (
               `https://jsonplaceholder.typicode.com/todos/${id}`,
             )
             .catch((err) => {
-              console.log(err);
+              // cxxxxonsole.log(err);
             });
         }),
       ),

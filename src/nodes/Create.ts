@@ -6,7 +6,7 @@ import { SimpleNode } from '../SimpleNode';
 
 export class CreateBlueprint {
   name = 'Create';
-  outPorts = [new OutPort({ name: 'output' })];
+  outPorts = [new OutPort({ name: 'Output' })];
   parameters = [
     new Parameter({
       name: 'type',
@@ -21,14 +21,7 @@ export class Create extends SimpleNode {
     super(input);
   }
 
-  /*
-   * StarterNode.output() notifies diagram it want to output items
-   * Diagram resolves connected links and puts items in the corresponding storage
-   * Diagram resolves ports and nodes dependent on the links
-   * Diagram notifies dependent nodes by calling Node.onNewItemsAt
-   */
   async start(): Promise<void> {
-    console.log('Starting node: ' + this.name);
     this.output([new Item(null)]);
   }
 }
