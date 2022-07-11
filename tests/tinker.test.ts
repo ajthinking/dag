@@ -2,6 +2,7 @@ import { DiagramNode } from '../src/DiagramNode';
 import { Create } from '../src/nodes/Create';
 import { DoNothing } from '../src/nodes/DoNothing';
 import { Output } from '../src/nodes/Output';
+import { sleep } from '../src/utils/sleep';
 
 it('can execute a simple diagram', async () => {
   const diagram = new DiagramNode();
