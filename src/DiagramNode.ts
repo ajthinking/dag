@@ -34,6 +34,10 @@ export class DiagramNode extends Node {
     return this;
   }
 
+  itemsAt(key: string) {
+    return this.getItemStorage().get(key);
+  }
+
   linkNodes(from: Node, to: Node) {
     const link = new Link({
       from: from.outPorts[0],
