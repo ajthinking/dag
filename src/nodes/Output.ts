@@ -15,6 +15,7 @@ export class Output extends SimpleNode {
   }
 
   onNewItemsAtInput(items: Item[]) {
+    console.log('Outputing an item');
     this.getItemStorage().concat(this.id, items);
   }
 }

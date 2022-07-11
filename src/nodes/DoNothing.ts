@@ -20,6 +20,7 @@ export class DoNothing extends SimpleNode {
   }
 
   onNewItemsAtInput(items: Item[]) {
+    console.log('New items at DoNothing');
     this.output(items);
   }
 }

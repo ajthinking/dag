@@ -22,6 +22,11 @@ export class Create extends SimpleNode {
   }
 
   async start(): Promise<void> {
-    this.output([new Item(null)]);
+    const count = 3;
+
+    for (let i = 0; i < count; i++) {
+      console.log('Creating a new item');
+      this.output([new Item(null)]);
+    }
   }
 }
