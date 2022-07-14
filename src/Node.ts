@@ -1,37 +1,38 @@
-import { Entity } from './types/Entity';
+import { Entity, InPortMap, OutPortMap } from './types';
 import { Item } from './Item';
-import { Parameter } from './Parameter';
 import { Port } from './Port';
 import { uid } from './utils/uid';
 import { ItemStorage } from './ItemStorage';
-import { DiagramNode } from './DiagramNode';
+import { Parameter } from './Parameter';
+import { InPort } from './InPort';
+import { OutPort } from './OutPort';
+import { SmartMap } from './utils/SmartMap';
+import { Diagram } from './Diagram';
 
 export type NodeInput = {
   id?: string;
   name?: string;
-  parameters?: Parameter[];
-  inPorts?: Port[];
-  outPorts?: Port[];
-  parent?: DiagramNode;
+  parameters?: Map<string, Parameter>;
+  inPorts?: SmartMap<string, InPort>;
+  outPorts?: SmartMap<string, OutPort>;
+  parent?: Diagram;
   itemStorage?: ItemStorage;
 };
 
-export abstract class Node implements Entity {
+export class Node implements Entity {
   id: string;
   name: string;
-  parameters: Parameter[] = [];
-  inPorts: Port[] = [];
-  outPorts: Port[] = [];
-  parent: DiagramNode;
+  parameters: Map<string, Parameter>;
+  inPorts: InPortMap;
+  outPorts: OutPortMap;
+  parent: Diagram;
 
   constructor(input: NodeInput = {}) {
     this.id = input.id ?? uid();
     this.name = input.name ?? this.constructor.name;
-    this.parameters = input.parameters ?? [];
-    this.inPorts = (input.inPorts ?? []).map((port) =>
-      port.setParent(this),
-    );
-    this.outPorts = (input.outPorts ?? []).map((port) =>
+    this.parameters =
+      input.parameters ?? new Map<string, Parameter>();
+    this.inPorts = input.inPorts.onEach((port) =>
       port.setParent(this),
     );
   }
@@ -74,7 +75,7 @@ export abstract class Node implements Entity {
     return this.parent.getItemStorage();
   }
 
-  setParent(parent: DiagramNode): Node {
+  setParent(parent: Diagram): Node {
     this.parent = parent;
 
     return this;
@@ -94,11 +95,11 @@ export abstract class Node implements Entity {
   }
 
   inPortNamed(name: string): Port | undefined {
-    return this.inPorts.find((port) => port.name === name);
+    return this.inPorts.get(name);
   }
 
   outPortNamed(name: string): Port | undefined {
-    return this.outPorts.find((port) => port.name === name);
+    return this.outPorts.get(name);
   }
 
   serialize(): string {

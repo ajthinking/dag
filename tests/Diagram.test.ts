@@ -1,31 +1,25 @@
-import { DiagramNode } from '../src/DiagramNode';
 import { InPort } from '../src/InPort';
 import { Node, NodeInput } from '../src/Node';
-import { Create } from '../src/nodes/Create';
-import { DoNothing } from '../src/nodes/DoNothing';
 import { OutPort } from '../src/OutPort';
 import { Port } from '../src/Port';
-import { ConcreteNode } from './ConcreteNode';
-import { ConcreteDiagramNode } from './ConcreteDiagramNode';
+import { Diagram } from '../src/Diagram';
 
 describe('constructor', () => {
   it('can instanciate with default settings', () => {
-    expect(new ConcreteDiagramNode()).toBeInstanceOf(
-      ConcreteDiagramNode,
-    );
+    expect(new Diagram()).toBeInstanceOf(Diagram);
   });
 
   // it('can instanciate with a itemStorage', () => {
-  //   expect(new ConcreteDiagramNode()).toBeInstanceOf(
-  //     ConcreteDiagramNode,
+  //   expect(new Diagram()).toBeInstanceOf(
+  //     Diagram,
   //   );
   // });
 });
 
 describe('addNode', () => {
   it('can add a single node', () => {
-    const diagram = new ConcreteDiagramNode();
-    const node = new ConcreteNode();
+    const diagram = new Diagram();
+    const node = new Node();
     diagram.addNode(node);
     expect(diagram.nodes).toContain(node);
   });
@@ -33,8 +27,8 @@ describe('addNode', () => {
 
 describe('addNodes', () => {
   it('can add multiple nodes', () => {
-    const diagram = new ConcreteDiagramNode();
-    const nodes = [new ConcreteNode(), new ConcreteNode()];
+    const diagram = new Diagram();
+    const nodes = [new Node(), new Node()];
     diagram.addNodes(nodes);
     expect(diagram.nodes.length).toBe(2);
   });
@@ -42,7 +36,7 @@ describe('addNodes', () => {
 
 describe('linkPorts', () => {
   it('can link two ports', () => {
-    const diagram = new ConcreteDiagramNode();
+    const diagram = new Diagram();
     const from = new OutPort();
     const to = new InPort();
     diagram.linkPorts(from, to);
@@ -52,9 +46,9 @@ describe('linkPorts', () => {
 
 describe('linkNodes', () => {
   it('can link two nodes', () => {
-    const diagram = new ConcreteDiagramNode();
-    const from = new ConcreteNode();
-    const to = new ConcreteNode();
+    const diagram = new Diagram();
+    const from = new Node();
+    const to = new Node();
 
     diagram.addNodes([from, to]);
     diagram.linkNodes(from, to);
@@ -64,15 +58,15 @@ describe('linkNodes', () => {
 
 describe('starterNodes', () => {
   it('returns all starter nodes', () => {
-    class StarterNode extends ConcreteNode {
+    class StarterNode extends Node {
       start() {
         return Promise.resolve();
       }
     }
 
-    const diagram = new ConcreteDiagramNode();
+    const diagram = new Diagram();
     const create = new StarterNode();
-    const other = new ConcreteNode();
+    const other = new Node();
     diagram.addNodes([create, other]);
     expect(diagram.starterNodes()).toEqual([create]);
   });
@@ -80,15 +74,15 @@ describe('starterNodes', () => {
 
 describe('start', () => {
   it('starts all starter nodes', () => {
-    class StarterNode extends ConcreteNode {
+    class StarterNode extends Node {
       start() {
         return Promise.resolve();
       }
     }
 
-    const diagram = new DiagramNode();
+    const diagram = new Diagram();
     const create = new StarterNode();
-    const other = new ConcreteNode();
+    const other = new Node();
     diagram.addNodes([create, other]);
     diagram.start();
   });

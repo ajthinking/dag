@@ -5,10 +5,10 @@ import { Node, NodeInput } from './Node';
 import { Parameter } from './Parameter';
 import { Port } from './Port';
 
-export class DiagramNode extends Node {
+export class Diagram extends Node {
   nodes: Node[] = [];
   links: Link[] = [];
-  parent: DiagramNode;
+  parent: Diagram;
   itemStorage: ItemStorage;
 
   constructor(

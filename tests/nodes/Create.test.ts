@@ -1,7 +1,7 @@
-import { Create } from '../../src/nodes/Create';
+import { Node } from '../../src/Node';
 
 describe('constructor', () => {
   it('can instanciate with default settings', () => {
-    expect(new Create()).toBeInstanceOf(Create);
+    expect(new Node()).toBeInstanceOf(Node);
   });
 });

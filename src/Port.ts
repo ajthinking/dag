@@ -1,4 +1,4 @@
-import { Entity } from './types/Entity';
+import { Entity } from './types';
 import { Item } from './Item';
 import { Node } from './Node';
 import { uid } from './utils/uid';

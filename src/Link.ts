@@ -1,16 +1,16 @@
-import { Entity } from './types/Entity';
+import { Entity } from './types';
 import { Port } from './Port';
 import { uid } from './utils/uid';
 import { NEW_ITEMS_AT_PORT } from './events/NEW_ITEMS_AT_PORT';
 import { Item } from './Item';
-import { DiagramNode } from './DiagramNode';
+import { Diagram } from './Diagram';
 
 export type LinkInput = {
   id?: string;
   name?: string;
   from: Port;
   to: Port;
-  parent?: DiagramNode;
+  parent?: Diagram;
 };
 
 export class Link implements Entity {
@@ -18,7 +18,7 @@ export class Link implements Entity {
   name: string;
   from: Port;
   to: Port;
-  parent: DiagramNode;
+  parent: Diagram;
 
   constructor(input: LinkInput) {
     this.id = input.id ?? uid();

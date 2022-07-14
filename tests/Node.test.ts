@@ -1,24 +1,19 @@
-import { DiagramNode } from '../src/DiagramNode';
 import { Node } from '../src/Node';
-import { Create } from '../src/nodes/Create';
-import { DoNothing } from '../src/nodes/DoNothing';
-
-class ConcreteNode extends Node {}
 
 describe('constructor', () => {
   it('can instanciate with default settings', () => {
-    expect(new ConcreteNode()).toBeInstanceOf(ConcreteNode);
+    expect(new Node()).toBeInstanceOf(Node);
   });
 });
 
 describe('isStarter', () => {
   it('returns false if node class does not implements method "start"', () => {
-    const node = new ConcreteNode();
+    const node = new Node();
     expect(node.isStarter()).toBe(false);
   });
 
   it('returns true if node class does not implements method "start"', () => {
-    class StarterNode extends ConcreteNode {
+    class StarterNode extends Node {
       start() {
         return Promise.resolve();
       }

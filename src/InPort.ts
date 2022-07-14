@@ -1,9 +1,9 @@
-import { DiagramNode } from './DiagramNode';
+import { Node } from './Node';
 import { Port } from './Port';
 
 export class InPort extends Port {
   id: string;
   name: string;
-  parent: DiagramNode;
+  parent: Node;
   isInput = true;
 }

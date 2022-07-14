@@ -1,6 +1,5 @@
 import { Link } from '../src/Link';
 import { Item } from '../src/Item';
-import { Create } from '../src/nodes/Create';
 
 describe('constructor', () => {
   it('sets name', async () => {
