@@ -14,11 +14,17 @@ export class CreateBlueprint {
     OutPort
   >([['output', new OutPort({ name: 'output' })]]);
 
-  parameters: ParameterMap = {
-    count: new Parameter({
-      name: 'count',
-      type: 'number',
-      defaultValue: 1,
-    }),
-  };
+  parameters: ParameterMap = new SmartMap<
+    string,
+    Parameter
+  >([
+    [
+      'count',
+      new Parameter({
+        name: 'count',
+        type: 'number',
+        defaultValue: 1,
+      }),
+    ],
+  ]);
 }

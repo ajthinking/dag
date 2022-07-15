@@ -5,7 +5,7 @@ import { SmartMap } from './utils/SmartMap';
 
 export type InPortMap = SmartMap<string, InPort>;
 export type OutPortMap = SmartMap<string, OutPort>;
-export type ParameterMap = { [key: string]: Parameter };
+export type ParameterMap = SmartMap<string, Parameter>;
 
 export interface Entity {
   id: string;

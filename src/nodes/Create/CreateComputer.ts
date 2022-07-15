@@ -7,7 +7,8 @@ export class CreateComputer {
   outputSocket: any;
 
   async start(): Promise<void> {
-    const count = this.blueprint.parameters.count.value;
+    const count =
+      this.blueprint.parameters.get('count').value;
 
     for (let i = 0; i < count; i++) {
       this.outputSocket.output([new Item(null)]);

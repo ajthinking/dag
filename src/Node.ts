@@ -1,4 +1,9 @@
-import { Entity, InPortMap, OutPortMap } from './types';
+import {
+  Entity,
+  InPortMap,
+  OutPortMap,
+  ParameterMap,
+} from './types';
 import { Item } from './Item';
 import { Port } from './Port';
 import { uid } from './utils/uid';
@@ -8,30 +13,21 @@ import { InPort } from './InPort';
 import { OutPort } from './OutPort';
 import { SmartMap } from './utils/SmartMap';
 import { Diagram } from './Diagram';
-
-export type NodeInput = {
-  id?: string;
-  name?: string;
-  parameters?: Map<string, Parameter>;
-  inPorts?: SmartMap<string, InPort>;
-  outPorts?: SmartMap<string, OutPort>;
-  parent?: Diagram;
-  itemStorage?: ItemStorage;
-};
+import { Blueprint } from './Blueprint';
 
 export class Node implements Entity {
   id: string;
   name: string;
-  parameters: Map<string, Parameter>;
+  parameters: ParameterMap;
   inPorts: InPortMap;
   outPorts: OutPortMap;
   parent: Diagram;
 
-  constructor(input: NodeInput = {}) {
+  constructor(input: Blueprint) {
     this.id = input.id ?? uid();
     this.name = input.name ?? this.constructor.name;
     this.parameters =
-      input.parameters ?? new Map<string, Parameter>();
+      input.parameters ?? new SmartMap<string, Parameter>();
     this.inPorts = input.inPorts.onEach((port) =>
       port.setParent(this),
     );

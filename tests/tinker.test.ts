@@ -1,13 +1,12 @@
-import { DiagramNode } from '../src/DiagramNode';
+import { Diagram } from '../src/Diagram';
+import { Node } from '../src/Node';
+import { makeNode as create } from '../src/nodes/Create';
 
 it('can execute a simple diagram', async () => {
-  const diagram = new DiagramNode();
-  // when adding a node, what TYPE should be added?
-  // what is the difference between a node and a diagram node?
-  // a diagram is a diagram, however, a node can act as a diagram and a diagram can act as a node (?!)
-  // have a sketch
-  const node1 = new Node();
+  const diagram = new Diagram();
+  const node1 = create();
   diagram.addNode(node1);
+
   await diagram.run();
 });
 

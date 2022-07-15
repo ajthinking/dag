@@ -1,23 +1,21 @@
 import { Item } from './Item';
 import { ItemStorage } from './ItemStorage';
 import { Link } from './Link';
-import { Node, NodeInput } from './Node';
+import { Node } from './Node';
 import { Parameter } from './Parameter';
 import { Port } from './Port';
 
-export class Diagram extends Node {
+export class Diagram {
   nodes: Node[] = [];
   links: Link[] = [];
   parent: Diagram;
   itemStorage: ItemStorage;
 
   constructor(
-    input: NodeInput = {
+    input = {
       itemStorage: new ItemStorage(),
     },
   ) {
-    super(input);
-
     this.itemStorage = input.itemStorage;
   }
 
@@ -70,11 +68,17 @@ export class Diagram extends Node {
     }
   }
 
+  getItemStorage() {
+    return this.itemStorage;
+  }
+
   starterNodes(): Node[] {
     return this.nodes.filter((node) => node.isStarter());
   }
 
   async start(): Promise<void> {
+    // Continue here
+    // return (new DiagramExecution(this)).start();
     const starterNodes = this.starterNodes();
 
     for (const node of starterNodes) {
